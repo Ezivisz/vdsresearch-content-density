@@ -24,12 +24,12 @@ async function getVersionAndUpdateCount() {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    let currentCount = docSnap.data().users;
+    let currentCount = docSnap.data().user || 0; // Ensure there's a default value
     const versions = ["A", "B", "C"];
     const version = versions[currentCount % 3];
 
     setTimeout(async () => {
-      await updateDoc(docRef, { users: currentCount + 1 });
+      await updateDoc(docRef, { user: currentCount + 1 });
     }, 1000); // Update count after 1 second
 
     return version;
